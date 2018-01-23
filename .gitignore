@@ -1,6 +1,10 @@
-*.pdf
-*.ps
-*.midi
-*.mid
-*.log
-*~
+*.class
+target/
+bin/
+logs/
+.project
+.classpath
+.settings/
+
+# Package Files #
+*.jar
