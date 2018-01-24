@@ -1,0 +1,329 @@
+https://github.com/chris-bailey/SpringMVC4-SpringDataJPA-jqueryUI
+
+What is AngularJS and Why at all?
+
+It all started with JavaScript. Javascript is evolved from being just a scripting language used occasionally to perform client side validations to become 
+a full-fledged programming language.
+
+With Jquery, life gets way easier. It’s stable API tackles browser incompatibilities across tons of browser available around, and allows DOM manipulation on the fly.
+
+But Jquery lacks something very important. It lacks structure, separation of concerns, testability, maintainability, and not so easy to understand. 
+Notion of framework to develop modular applications upon seems missing. With ever increasing complexity, and sheer size of today’s applications, 
+all jQuery projects looks completely different from one another as the developer himself tries to implement modularity and structure in his applications. 
+Any new guy facing maintenance for those Jquery projects will have a hard time finding his way.
+
+AngularJS was originated to fill this gap. AngularJS is a client side MVC framework, which provides a layer on top of jQuery. It provides a framework and api to
+ develop modular applications upon, provides well defined structure to your applications, where separation of concerns is well maintained. Each functionality of 
+ project belongs to a specific concern(data, view, business-logic), and thus reduces development time by several fold, maintenance and testability becomes
+  a breeze with modular architecture. In AngularJS, you can achieve the same functionality in couple of lines of code, which with JQuery might take hundreds of lines.
+   AngularJS takes care of all boilerplate code, and let you focus on core business logic, and look-n-feel of your application.
+AngularJS adheres MVC Pattern
+
+AngularJS adheres a Model-View-Controller (MVC)-like pattern for structuring any application. There are three parts to any AngularJS application.
+
+    Model : Model is the data that you want to display to the user, or get the user to enter through your application. It is represented using JSON objects.
+    View : View is the User interface /rendered HTML that the user sees and interacts with, which displays the data to the user.
+    Controller : Controller handles the core business logic of your application. It decides which part of the model to show to the user, how to handle validation, 
+    perform business logic and so on.
+
+AngularJS Advantages
+
+    Seperation Of Concerns (MVC)
+    Fewer lines of Code
+    Pure HTML templates
+    Testability
+    Smooth Integration with 3rd party libraries
+
+
+1) Load AngularJS source code :
+
+We need to load the AngularJS source code, which can be found with google hosted libraries. You may prefer to download and keep it in your project locally.
+ You may also prefer to load in head section instead of body(as we did here).
+
+2) Bootstrap AngularJS:
+
+An AngularJS application is bootstrapped using ng-app directive. This is THE MOST IMPORTANT directive in AngularJS. It refers to the part of your HTML which
+ will be controlled/managed by AngularJS. In this example, we have used it on html tag, that means AngularJS will control the whole html. 
+ You can also put this tag on a specific element. In that case, only that element and it’s child elements will be controlled by AngularJS. 
+ Anything outside will remain inaccessible to AngularJS.
+
+3) Data binding:
+
+Look at input tag, it has an AngularJS directive called ng-model. The ng-model directive is used with input fields to get access to the user input into 
+JavaScript variables. Here, we tell AngularJS to store the value that the user types into this field in a javascript variable called name.
+
+- We have also used another directive called ng-bind. ng-bind and the double-curly notation {{ }} are almost same and can be used interchangeably, as we used above. 
+ng-bind & {{variable }} notation are used to get the value from the variable referred by ng-model and display that value in the tag ng-bind is 
+applied on [or on the place {{ variable }} is used], and keeping the value up to date if it changes. This is known as one-way data-binding, 
+where we take data coming from any source (key-in by user, from server), and update the DOM instantly.
+
+Now, whenever the model[means DATA] changes (for example user typed something), Angular’s data-binding will cause the view [ with ng-bind or {{}}] to automatically 
+update. No manual DOM manipulation is required.
+
+If we were to implement same functionality with Jquery, we would be using watchers and listeners to accomplish the same thing. With AngularJS, we didn’t even 
+write one line of javascript here. All that boilerplate code is handled by AngularJS, and we are left with focusing on our application look n feel and business logic. 
+That’s the power of AngularJS.
+
+
+AngularJs Modules.
+
+A module in AngularJS can be thought of as regular packages in Java. It’s the container for the different parts of an application – controllers, services, filters, 
+directives, etc. AngularJS can group together certain functionalities/Javascript under a single module.
+
+    A module can define it’s own controllers, services, filter, directives, etc which will be accessible throughout the module.
+    A module can depend on other modules.
+    A module can be used by AngularJS to bootstrap an application. By passing the module name to ng-app directive, we can tell AngularJS to load this module as the main 
+    entry point for the application.
+
+In angularJS, a module is defined or called using angular.module function.
+
+Define a Module with no dependencies
+angular.module('myapp', []);
+
+The first argument is the module name, ‘myApp’. The second argument is an array of module names that this module depends on. Empty square brackets denotes that this 
+module does not have any dependencies.
+
+Define a Module with dependencies
+
+Below snippet defines a module named myApp, which depends on two other modules: ui.bootstrap & ngResource:
+angular.module('myapp', ['ui.bootstrap', 'ngResource']);
+
+It means all the functionalities available in ‘ui.bootstrap’ & ‘ngResource’, will be accessible throughout module ‘myApp’.
+
+Load an existing Module
+
+3. AngularJS Controllers Explained with Examples
+
+AngularJS Controllers are most useful part of an AngularJS application. These are javascript functions/objects which perform majority of UI related work. 
+They can be considered as the driver for Model and View changes. They are the gateway between the model (the data in our application), and the view 
+(whatever a users sees on his screen and interacts with).
+
+Their core responsibilities includes:
+
+    Providing Data to UI. Data can be static or fetched from server.
+    Managing presentation logic, such as which element to show/hide, what style to apply on them, etc.
+    Handling user input, such as what happens when a user clicks something or how a text input should be validated
+    Processing data from user input to be sent to server
+
+
+If we just want to load an existing module defined elsewhere, call module function with only one parameter which is name of module.
+angular.module('myApp');
+
+Basic Syntax
+angular.module('myApp', [])
+.controller('AppController', [function() {
+    var self= this;
+    self.name = 'BLA BLA';
+}]);
+
+or if the module is defined elsewhere.
+var App = angular.module('myApp',['ui.bootstrap', 'ngResource']);//in some file
+ 
+App.controller('AppController', [function() {
+    var self= this;
+    self.name = 'BLA BLA';
+}]);
+
+    Controllers are created as part of a module. Use angular.module function to create a module if it does not exist
+    
+	Once you have a module, you can create a controller using the controller function on the module.
+	controller function takes two arguments. First is the name of Controller ['AppController' in this example], and second argument is controller definition function
+	 which contains the actual logic of controller.
+    
+    Take special notice of how we have defined our controller definition function inside an array. The array holds all the dependencies for the controller as string 
+    variables, and the last argument in the array is the actual controller function. In this case, because we have no dependencies, the function is the only argument
+     in the array.
+     
+     
+    Controller with Dependencies
+	var App = angular.module('myApp',['ui.bootstrap', 'ngResource']);//in some file
+	 
+	App.controller('AppController', ['$log', '$location', function($log, $location) {
+	    var self= this;
+	    self.name = 'BLA BLA';
+	    self.sayHello = function(){alert('say hello');}
+	    $log.log('I am starting');
+	    $location.path("/newpath")
+	}]);
+
+     In above example, our controller depends on few built-in AngularJS services [$log service used to simply log strings to console, $location service used to 
+     interact with the URL in the browser bar]. First we need to add the dependencies as strings in the array (this is known as ‘safe style of Dependency Injection’). 
+     Then we will inject them as variables (you can give it any name) into the function that is passed as the last argument in the array.
+
+	AngularJS will pick up the individual strings in the array, look up the services internally, and inject them into the function in the order in which we have 
+	defined the strings. Once the services are injected, we can use them within our controller. In this case, the controller definition function simply logs a string 
+	to the console, and set the URL to /newpath.
+
+	How to use a controller in UI ?
+
+	Using ng-controller directive.
+	
+	<body ng-controller="AppController as ctrl">
+ 
+  <label>Name :</label><input type="text" ng-model="ctrl.name" placeholder="Enter your name"/><br/><br/>  
+ 
+  <span ng-bind="ctrl.name"></span><br/><br/>  
+ 
+  <button ng-click="ctrl.sayHello()"> Hello </button>
+ .....
+ </body>
+ 
+ In order to use a Controller in UI, we make use of another popular AngularJS directive : ng-controller. This directive is primarily used to associate an 
+ instance of a controller with a UI element. In this particular example, we applied it on body.
+controllerAs syntax
+
+With ng-controller, we have provided a name to this particular instance of AppController, called ctrl using as keyword. This is known as the controllerAs syntax
+ in AngularJS [Bla as b]. Using controllerAs syntax, we can give each instance of the controller a name in order to recognize its usage in the HTML. 
+ Note that we can even have different instances of same controller used in different places in UI, in that case controllerAs will be handy to relate which instance 
+ is controlling which part of HTML.
+I can’t see $scope in my controller ???
+
+Anyone coming from AngualrJS background will be wondering where all those $scope stuff have gone. With the new controllerAs syntax, you can simply avoid using
+ $scope unless in specific situations. The controllerAs syntax gives a clear impression when looking in HTML about who is doing what in UI.
+
+Just for comparison, let’s rewrite above snippet using $scope this time:
+
+var App = angular.module('myApp',['ui.bootstrap', 'ngResource']);//in some file
+  
+App.controller('AppController', ['$scope','$log', '$location', function($scope, $log, $location) {
+    $scope.name = 'BLA BLA';
+    $scope.sayHello = function(){alert('say hello');}
+    $log.log('I am starting');
+    $location.path("/newpath")
+ 
+}]);
+
+This time, instead of using this, we are creating a property and a function directly on $scope which we have added as a dependency, and will be injected by AngularJS. 
+Now let’s see what our view will look like:
+
+
+<body ng-controller="AppController">
+ 
+  <label>Name :</label><input type="text" ng-model="name" placeholder="Enter your name"/><br/><br/>  
+ 
+  <span ng-bind="name"></span><br/><br/>  
+ 
+  <button ng-click="sayHello()"> Hello </button>
+ 
+ .....
+ </body>
+ 
+ 
+ In above snippet, we have removed the controllerAs syntax, just controller name. As a result we are directly using the property and function by their names.
+  This may seem nice here, but imagine when you have a complicated UI involving different components, it will make it hard for anyone reading the code to understand
+   which property or function belongs to which component. This is one of reason to prefer controllerAs syntax over $scope counterpart.
+A quick summary on scope:
+
+One of the best explanation available on AngualrJS scope can be found at This link, which will answer all your scope related questions. In this section, however, 
+i will just put few words from 30000 feet view.
+
+https://github.com/angular/angular.js/wiki/Understanding-Scopes
+
+    Every Angular application has a single root scope that can be accessed using $rootScope. Application may have several other scopes [child scopes]. 
+    All other scopes are descendant scopes of the root scope. AngularJS scope follows JavaScript Prototypal Inheritance in that child scope inherit from parent scope.
+    
+    A Scope in general is an object that refers to the application model. It acts as a context for an element in your HTML DOM. Each & every element in your HTML 
+    lives under a scope, whether it is it’s own scope or a parent scope. If the element has not defined it’s own scope, it is using scope from it’s parent.
+    Scopes are arranged in hierarchical structure which mimic the DOM structure of the application. Some AngularJS elements 
+    [like ng-Controller/ng-repeat/ng-switch/directives with scope:true e.g.] create there own child scope.
+    You may also treat the scope as a bridge between model & view. For instance, AngularJS components [controllers e.g.] can create properties and methods on scope, 
+    write data on those properties, which can then be accessed in view [HTML] by them (& optionally by their children).
+    Scopes are attached to the DOM as $scope data property. If declared as a dependency, AngularJS injects $scope in your component javascript.
+    Scopes provide APIs ($watch) to observe model changes.
+    Scopes provide APIs ($apply) to propagate any model changes through the system into the view from outside of the “Angular realm” (controllers, services, 
+    Angular event handlers).
+    Scopes can propagate events in similar fashion to DOM events. The event can be broadcasted to the scope children or emitted to scope parents.
+    
+    We started by defining a module named ‘myApp’ which will be used to bootstrap this application.
+    We defined a controller named AppController using the controller function on the module.
+    We defined two variables name and message on the controller’s instance (using the this keyword).
+    To use this controller in the UI , we make use of another popular directive ng-controller. This directive is primarily used to associate an instance of a 
+    controller with a UI element. In this particular example, we applied it on body.
+    With ng-controller, we have provided a name to this particular instance of AppController, called ctrl. This is known as the controllerAs syntax in AngularJS. 
+    Using controllerAs syntax, we can give each instance of the controller a name in order to recognize its usage in the HTML. Note that we can even have different
+     instances of same controller used in different places in UI, in that case controllerAs will be handy to relate which instance is controlling which part of HTML
+    On input tag, we used ng-model directive to store the value that the user types into this field into Controller’s ‘name’ variable.
+    We then bind the name and message variables from the controller in the HTML using ng-bind.
+    We also have two buttons on UI with the label “Change Message” & “Reset Message”. We have placed a built-in directive on them, ng-click. The ng-click directive 
+    evaluates any expression passed to it when the button is clicked. In this case, we ask AngularJS to trigger the controller’s changeMessage()/resetMessage() 
+    functions when clicked.
+    The changeMessage() function in the controller simply sets the value of message to “Bye.”, while resetMessage() function sets the value of message back to “Hello.”
+
+	When you type something in text box, the view is updated immediately to reflect it, thanks to AngularJS data-binding. Additionally, on startup, 
+	Application shows ‘Hello’ message but on clicking the changeMessage button (which simply sets the message variable in controller to a different value), 
+	the text in UI changes to ‘Bye’. It is interesting because we did not have to tell the UI to update. It happened automatically.
+ 
+ AngularJS Form Validation Example
+ 
+ In this simplistic example, 3 text field and a button is wrapped inside a form.
+
+    First highlight of this Form is that, we have nowhere declared/or instantiated a user object in the controller. With ng-model, AngularJS automatically creates 
+    the objects and it’s properties on the fly if it does not exist. In this case, until the user types something into the username or any other field, there is no 
+    user object. 
+    
+    As the user types in the first letter, it causes the user object to be created, and the typed-in value to be assigned to the respective field.
+    Second interesting point of this form is that instead of binding to ctrl.username, ctrl.address & ctrl.email, we are binding to ctrl.user.username, 
+    ctrl.user.address and ctrl.user.email. This has an advantage that after submitting the form, we don’t have to prepare a user object to fill in the values from form.
+    It is already prepared with all input values, you can send it as it is to server. In this example, we simply logged it on console. Check your browser console output.
+    
+    Last striking thing of this form is that we have used ng-submit directive on form here instead of using ng-click on submit button. This is because a form can 
+    be submitted by clicking the Submit button, or hitting Enter on a text field. The ng-submit gets triggered on all those events, whereas the ng-click will only be 
+    triggered when the user clicks the button.
+ 
+    Main Highlights
+
+	We have included some error messages on individual field level.
+
+    Both Form and individual fields which needs to be validated now contains a name attribute. For instance, we don’t want address field to be validated, 
+    hence no name attribute on that field.
+    We have marked the fields with HTML5 required validator as well as AngularJS ng-minlength and type="email" validators. Each of the validators exposes a key on 
+    the $error object, so that we can pick it up and display the error message for that particular error to the user
+    In order to check & show validation errors, we have used another popular AngularJS directive ng-show. ng-show and ng-hide are two directives in AngularJS that 
+    deal with hiding and showing HTML elements. They inspect a variable and, depending on the truthiness of its value, show or hide elements in the UI, respectively.
+     AngularJS treats true, nonempty strings, nonzero numbers, and nonnull JS objects as truthy.
+    On individual field we have created specific span element with specific error which are shown only when certain type of validation error is present.
+     Look at myForm.$dirty condition. it will be true only if something was typed in/edited in form. It will avoid showing errors on form load. Different form states 
+     are shown further in post.
+    If a certain validator failed, then AngualrJS marks that field as invalid [myForm.email.$invalid], which can again be used with ng-show to display further error 
+    to user.
+    If there is any validation error in form, form itself is marked as invalid by AngualarJs. Here we used another AngularJS directive ng-disabled to disable the 
+    submit button if the form is invalid [ng-disabled="myForm.$invalid"].
+
+	Different Form states in AngularJS
+
+    $invalid : AngularJS sets this state when any of the validations (required, ng-minlength, and others) mark any of the fields within the form as invalid.
+    $valid : The inverse of the previous state, which states that all the validations in the form are currently evaluating to correct.
+    $pristine : All forms in AngularJS start with this state. This allows you to figure out if a user has started typing in and modifying any of the form elements. 
+    Possible usage: disabling the reset button if a form is pristine.
+    $dirty : The inverse of $pristine, which states that the user made some changes (he can revert it, but the $dirty bit is set).
+    $error : This field on the form houses all the individual fields and the errors on each form element.
+    
+	Shown below are the form states and respective AngularJS classes being added/removed on form and individual fields.
+
+    $invalid : ng-invalid
+    $valid : ng-valid
+    $pristine: ng-pristine
+    $dirty : ng-dirty
+
+	Similarly , for each validation failure, following CSS classes are added/removed from individual fields.
+
+    $invalid : ng-invalid
+    $valid : ng-valid
+    $pristine: ng-pristine
+    $dirty : ng-dirty
+    $required: ng-valid-required or ng-invalid-required
+    min : ng-valid-min or ng-invalid-min
+    max : ng-valid-max or ng-invalid-max
+    minlength : ng-valid-minlength or ng-invalid-minlength
+    maxlength : ng-valid-maxlength or ng-invalid-maxlength
+    pattern : ng-valid-pattern or ng-invalid-pattern
+    url : ng-valid-url or ng-invalid-url
+    email : ng-valid-email or ng-invalid-email
+    date : ng-valid-date or ng-invalid-date
+    number : ng-valid-number or ng-invalid-number
+	
+	
+	
+
+
+
